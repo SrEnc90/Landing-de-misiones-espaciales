@@ -1,0 +1,80 @@
+---
+import HeaderButton from "./HeaderButton.astro";
+import {Counter} from './Counter.jsx'
+
+console.log("javascript");
+---
+
+<header class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6"> 
+  <div class="mx-auto text-center mb-8 lg:mb-16">
+    <h2 class="mb-4 text-5xl tracking-tight font-extrabold text-white">
+      SpaceX launches 🚀
+    </h2>
+    <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
+      All information about SpaceX launches
+    </p>
+  </div>
+
+  <!-- ! con el transition: persist le estamos indicando que persista la acción, en este caso la etiqueta Counter -->
+  <Counter transition:persist client:visible /> <!-- ! le estamos indicando que cargue el javascript, en astro a esto se le conoce como una isla. Astro por defecto no carga javascript todo lo renderiza como si fuera estático -->
+
+  <nav
+    class="flex flex-col items-center justify-between w-full text-center md:flex-row"
+  >
+    <HeaderButton class="text-white" href="/">
+      <svg
+        slot="before-text"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+          d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3"
+        ></path><path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3"></path><path
+          d="M15 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg
+      >
+      Últimos lanzamientos
+    </HeaderButton>
+    <HeaderButton class="text-white" href="/about">
+      <!-- Date cuenta que hemos colocado slot="after-text" ya que hemos colocado dentro del componente Headerbutton dos slot para indicar si va a antes o después del texto  -->
+      <svg
+        slot="before-text"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+          d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"
+        ></path><path d="M12 9h.01"></path><path d="M11 12h1v4h1"></path></svg
+      >
+      Sobre el proyecto
+    </HeaderButton>
+    <HeaderButton class="text-white" href="/oldest">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-clock"
+        slot="before-text"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+          d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path><path d="M12 7v5l3 3"
+        ></path></svg
+      >
+      Los más viejos
+    </HeaderButton>
+  </nav>
+</header>

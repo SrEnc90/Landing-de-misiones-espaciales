@@ -1,0 +1,56 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getLaunchBy, getLatestLaunches } from '../../services/spacex';
+import Layout from "../../layouts/Layout.astro";
+
+const { id } = Astro.params
+
+let launch
+if(id) {
+    launch = await getLaunchBy({id});
+}
+
+export const prerender = false // para indicar que funcionar en el servidor está parte Al colocar en el astro.config el output com hybrid
+
+// una simulación que estamos trabajando en el servidor al colocar el prerender como false, podemos trabajar con las cookies para el authorize
+// if(Astro.cookies.get('user')) {
+//     console.log('user logged');
+//     Astro.response({
+//         status: 200,
+//         Headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: {
+//             message: 'User logged'
+//         }
+//     })
+// } else {
+//     console.log('user not logged');
+// }
+
+//! Al colocar en el astro.config el output para que se renderize desde un servidor ya no necesitamos colocar lo de abajo por eso lo comentamos
+//  Esta función es de astro
+// export const getStaticPaths = (async () => {
+//     // podemos llamar a una api externa para saber todas las ids que debemos generar
+
+//     const launches = await getLatestLaunches()
+
+//     return launches.map(launch => ({
+//         params: {id: launch.id}
+//     }))
+
+//     // return [
+//     //     {params: {id: '5eb87cdaffd86e000604b32b'}}
+//     // ];
+    
+// }) satisfies GetStaticPaths;
+---
+
+<Layout title=`Lanzamiento ${id}`>
+    <article class="flex gap-y-4 flex-col">
+        <!-- {launch?.id} -->
+        <img class="w-52 h-auto" src={launch?.links?.patch.small} alt={launch?.name}>
+        <h2 class="text-4xl text-white font-bold">Launch # {launch?.flight_number}</h2>
+        <p class="text-lg">{launch?.details}</p>
+    </article>
+</Layout>
